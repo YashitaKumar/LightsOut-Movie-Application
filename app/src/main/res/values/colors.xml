@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="header_grey">#999999</color>
     <color name="grey">#707070</color>
+    <color name="light_grey">#181818</color>
+    <color name="Blue">#3F8034</color>
+    <color name="G">#6F6F6F</color>
+    <color name="DarkBlue">#3B5998</color>
+    <color name="Bluish">#4385F4</color>
 </resources>

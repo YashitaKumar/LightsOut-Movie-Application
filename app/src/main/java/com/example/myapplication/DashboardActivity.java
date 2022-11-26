@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +42,11 @@ public class DashboardActivity extends AppCompatActivity {
     private ParentAdapterBottomSlider parentAdapterBottomSlider;
     ImageSlider topSlider;
     private ViewPager2 viewPager2;
+    ImageView notBtn;
+    ImageView profBtn;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +119,23 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onChanged(DatabaseError databaseError) {
                 Toast.makeText(DashboardActivity.this,"Error",Toast.LENGTH_SHORT);
+            }
+        });
+
+        //Buttons for activity connectivity
+        notBtn = findViewById(R.id.noti);
+        notBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this,NotificationActivity.class));
+            }
+        });
+
+        profBtn = findViewById(R.id.profile);
+        profBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this,Profile.class));
             }
         });
 
