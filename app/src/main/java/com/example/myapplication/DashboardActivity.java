@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -44,6 +46,10 @@ public class DashboardActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     ImageView notBtn;
     ImageView profBtn;
+    TextView txt;
+    String temp;
+    MiddleSliderAdapter middleSliderAdapter;
+    ImageView MovBtn;
 
 
     @SuppressLint("MissingInflatedId")
@@ -54,6 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         //Views on the layout
         loc = findViewById(R.id.loc);
+        txt = findViewById(R.id.temp);
 
         //Location spinner functioning
         ArrayAdapter<CharSequence> adapter  = ArrayAdapter.createFromResource(this,R.array.locations,android.R.layout.simple_spinner_item);
@@ -92,6 +99,15 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         //Middle Sliders
+        viewPager2 = findViewById(R.id.MiddleSlider);
+        FirebaseRecyclerOptions<MiddleModel> options = new FirebaseRecyclerOptions.Builder<MiddleModel>().setQuery(FirebaseDatabase.getInstance().getReference().child("Dashboard/MiddleSliders"),MiddleModel.class).build();
+        middleSliderAdapter = new MiddleSliderAdapter(options);
+        middleSliderAdapter.setViewPager2(viewPager2);
+        viewPager2.setAdapter(middleSliderAdapter);
+
+
+
+
 
 
 
@@ -102,6 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
         parent.setHasFixedSize(true);
         parent.setLayoutManager(new LinearLayoutManager(this));
         parentAdapterBottomSlider = new ParentAdapterBottomSlider();
+        parentAdapterBottomSlider.setContext(getApplicationContext());
         parent.setAdapter(parentAdapterBottomSlider);
 
 
@@ -136,6 +153,14 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(DashboardActivity.this,Profile.class));
+            }
+        });
+
+        MovBtn = findViewById(R.id.MoviesBtn);
+        MovBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this,movie_description.class));
             }
         });
 

@@ -61,9 +61,10 @@ public class NotificationActivity extends AppCompatActivity {
 
         mAuth= FirebaseAuth.getInstance();
 
-        FirebaseRecyclerOptions<NotiMovieModel> options = new FirebaseRecyclerOptions.Builder<NotiMovieModel>().setQuery(FirebaseDatabase.getInstance().getReference("/Users").child(mAuth.getCurrentUser().getUid()+"/notifications"),NotiMovieModel.class).build();
+        FirebaseRecyclerOptions<NotiMovieModel> options = new FirebaseRecyclerOptions.Builder<NotiMovieModel>().setQuery(FirebaseDatabase.getInstance().getReference().child("/Users/"+mAuth.getCurrentUser().getUid()+"/notifications"),NotiMovieModel.class).build();
         notiMovieAdapter = new NotiMovieAdapter(options);
         recyclerView.setAdapter(notiMovieAdapter);
+
 
 
 

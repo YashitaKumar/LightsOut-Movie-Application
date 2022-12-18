@@ -37,13 +37,12 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         Name = findViewById(R.id.Name);
         Mail = findViewById(R.id.Mail);
         Loca = findViewById(R.id.Loca);
+        ContactNumber= findViewById(R.id.ContactNumber);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this,gso);
-
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
             String personName = acct.getDisplayName();
@@ -51,29 +50,28 @@ public class Profile extends AppCompatActivity {
             Name.setText(personName);
             Mail.setText(personEmail);
         }
-
-
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for(DataSnapshot ds:snapshot.getChildren()) {
                     if(ds.child("email").getValue().equals(mAuth.getCurrentUser().getEmail().toString())) {
-
                         name = ds.child("userName").getValue(String.class);
+                        email = ds.child("email").getValue(String.class);
+                        number = ds.child("phoneNumber").getValue(String.class);
+                        loc = ds.child("location").getValue(String.class);
                     }
                 }
-
+                Name.setText(name);
+                Mail.setText(email);
+                Loca.setText(loc);
+                ContactNumber.setText(number);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         bBtn = findViewById(R.id.profBack);
         bBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,9 +79,5 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent(Profile.this,DashboardActivity.class));
             }
         });
-
-
-
-
     }
 }

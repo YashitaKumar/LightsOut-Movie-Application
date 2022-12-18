@@ -10,25 +10,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.util.Collections;
 import java.util.List;
 
-public class MiddleSliderAdapter extends RecyclerView.Adapter<MiddleSliderAdapter.MyViewHolder>{
-    private List<MiddleModel> lists;
-    private ViewPager2 viewPager2;
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            lists.addAll(lists);
-            notifyDataSetChanged();
-        }
-    };
+public class MiddleSliderAdapter extends FirebaseRecyclerAdapter<MiddleModel,MiddleSliderAdapter.MyViewHolder> {
 
-    public MiddleSliderAdapter(List<MiddleModel> lists, ViewPager2 viewPager2) {
-        this.lists = lists;
+    public void setViewPager2(ViewPager2 viewPager2) {
         this.viewPager2 = viewPager2;
     }
+
+    private ViewPager2 viewPager2;
+
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public MiddleSliderAdapter(@NonNull FirebaseRecyclerOptions<MiddleModel> options) {
+        super(options);
+    }
+
 
     @NonNull
     @Override
@@ -37,15 +43,11 @@ public class MiddleSliderAdapter extends RecyclerView.Adapter<MiddleSliderAdapte
         return new MyViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        MiddleModel itemss = lists.get(position);
-        holder.setImage(itemss);
-    }
 
     @Override
-    public int getItemCount() {
-        return lists.size();
+    protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull MiddleModel model) {
+        Glide.with(holder.middle.getContext()).load(model.getPoster()).into(holder.middle);
+
     }
 
      class MyViewHolder extends RecyclerView.ViewHolder{
@@ -55,9 +57,5 @@ public class MiddleSliderAdapter extends RecyclerView.Adapter<MiddleSliderAdapte
             super(itemView);
             middle = itemView.findViewById(R.id.MiddleSlide);
         }
-         void setImage(MiddleModel sliderItems){
-//use glide or picasso in case you get image from internet
-             middle.setImageResource(sliderItems.getPoster());
-         }
     }
 }

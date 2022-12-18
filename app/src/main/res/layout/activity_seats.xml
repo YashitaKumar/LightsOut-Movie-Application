@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="05dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerHorizontal="true">
+        <RadioButton
+            android:id="@+id/rg1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="10:00am"
+            android:textColor="@color/white"
+            />
+        <RadioButton
+            android:id="@+id/rg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="12:00pm"
+            android:textColor="@color/white"
+            />
+        <RadioButton
+            android:id="@+id/rg3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="03:00pm"
+            android:textColor="@color/white"
+            />
+        <RadioButton
+            android:id="@+id/rg4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="06:00pm"
+            android:textColor="@color/white"
+            />
+    </RadioGroup>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical"
+        android:layout_below="@id/radiogroup">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+        <HorizontalScrollView
+            android:id="@+id/layoutSeat"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bookNow"
+                android:layout_width="190dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layoutSeat"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/email"
+                android:text="BOOK NOW"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"/>
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

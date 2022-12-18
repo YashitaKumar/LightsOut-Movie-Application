@@ -74,22 +74,7 @@ public class Registration extends AppCompatActivity {
         String email=EmailAddress.getText().toString();
         String password=R_Password.getText().toString();
 
-        userModel = new UserModel(location, name, phone, email);
-        FirebaseDatabase.getInstance().getReference("/Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful())
-                {
-                    progressDialog.dismiss();
-                    sendUserToNextActivity();
-                    Toast.makeText(Registration.this, "Data Stored", Toast.LENGTH_SHORT).show();
-                }else
-                {
-                    progressDialog.dismiss();
-                    Toast.makeText(Registration.this, "+task.getException()", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
         if (!email.matches(emailPattern))
         {
@@ -110,8 +95,23 @@ public class Registration extends AppCompatActivity {
                     if (task.isSuccessful())
                     {
                         progressDialog.dismiss();
-                        sendUserToNextActivity();
                         Toast.makeText(Registration.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        userModel = new UserModel(location, name, phone, email);
+                        FirebaseDatabase.getInstance().getReference("/Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(Registration.this, "Data Stored", Toast.LENGTH_SHORT).show();
+                                }else
+                                {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(Registration.this, "+task.getException()", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        sendUserToNextActivity();
                     }else
                     {
                         progressDialog.dismiss();
@@ -119,6 +119,7 @@ public class Registration extends AppCompatActivity {
                     }
                 }
             });
+
         }
     }
 
